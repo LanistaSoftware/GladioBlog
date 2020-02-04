@@ -1,6 +1,6 @@
 <template>
   <section>
-      <h1>Blog alanı</h1>
+      <h1>Blog alanı olacak</h1>
       <Comment></Comment>
   </section>
 </template>
