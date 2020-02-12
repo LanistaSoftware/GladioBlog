@@ -1,54 +1,82 @@
 <template>
   <aside>
     <div class="sidecardhead">
-    <h5>Recommended</h5>
-    <button class="active sidebuttons">Recent</button>
-    <button class="sidebuttons">Popular</button>
-    <button class="sidebuttons">Comments</button>
+      <h5>Recommended</h5>
+      <button class="active sidebuttons" @click="listToRecent()">Recent</button>
+      <button class="sidebuttons" @click="listToPopular()">Popular</button>
+      <button class="sidebuttons" @click="listToComments()">Comments</button>
     </div>
 
-    <div class="sidecard clearfix">
-      <div class="sideimg"><img src="https://i.picsum.photos/id/11/90/65.jpg" width="90" height="65" alt="Blog İmage">
-      </div>
-      <div class="sidetext">
-        <a href=""><h6>Magazine WordPress Theme</h6></a>
-        <div class="blog-meta">
-          <time class="blogtime">January 24, 2016</time>
+    <ul>
+      <li>
+        <div class="imgdiv"><img src="https://i.picsum.photos/id/11/90/65.jpg" alt="Blog İmage">
         </div>
-      </div>
-    </div>
-    <div class="sidecard clearfix">
-      <div class="sideimg"><img src="https://i.picsum.photos/id/22/90/65.jpg" width="90" height="65" alt="Blog İmage">
-      </div>
-      <div class="sidetext">
-        <a href=""><h6>Magazine WordPress Theme</h6></a>
-        <div class="blog-meta">
-          <time class="blogtime">January 24, 2016</time>
+        <div class="sidetext">
+          <a href="">
+            <h6>Magazine WordPress Theme</h6>
+          </a>
+          <div class="blog-meta">
+            <time class="blogtime">January 24, 2016</time>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="sidecard clearfix">
-      <div class="sideimg"><img src="https://i.picsum.photos/id/33/90/65.jpg" width="90" height="65" alt="Blog İmage">
-      </div>
-      <div class="sidetext">
-        <a href=""><h6>Magazine WordPress Theme</h6></a>
-        <div class="blog-meta">
-          <time class="blogtime">January 24, 2016</time>
+      </li>
+      <li>
+        <div class="imgdiv"><img src="https://i.picsum.photos/id/32/90/65.jpg" alt="Blog İmage">
         </div>
-      </div>
-    </div>
+        <div class="sidetext">
+          <a href="">
+            <h6>Magazine WordPress Theme</h6>
+          </a>
+          <div class="blog-meta">
+            <time class="blogtime">January 24, 2016</time>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="imgdiv"><img src="https://i.picsum.photos/id/91/90/65.jpg" alt="Blog İmage">
+        </div>
+        <div class="sidetext">
+          <a href="">
+            <h6>Magazine WordPress Theme</h6>
+          </a>
+          <div class="blog-meta">
+            <time class="blogtime">January 24, 2016</time>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+
   </aside>
 </template>
 
 <script>
-
+import Axios from 'axios'
 export default {
   name: 'Recommended',
-   data () {
+  data() {
     return {
-      msg: 'Welcome to Your Recommended.js App'
+      blogs: [],
+      recentBlogs:[]
+    }
+  },
+  mounted() {
+    Axios.get('http://localhost:2500/api/post').then(res => {
+      this.blogs = res.data;
+      console.log(this.blogs)
+    }).catch(err => {
+      console.log(err);
+    })
+  },
+  methods: {
+    listToRecent() {
+      let blogDates = null;
+      let blogId = null;
+      // this.recentBlogs=this.blogs[this.blogs.length-1,this.blogs.length-2,this.blogs.length-3]
+      // console.log(this.recentBlogs)
     }
   }
+
 }
 </script>
 
@@ -74,11 +102,9 @@ Red : #e33 = @redcolor
 @contentfont:'Exo', sans-serif;
 @btntextcolor:#eee;
 
-
 button{
     background-color: #303030;
-    border: none;
-  
+    border: none;  
     padding:.4rem;
     color: @bgcolor;
     font-size: .9rem;
@@ -104,25 +130,28 @@ a{
 .active{
     background-color: @redcolor;
 }
-.sidecard{
+
+img{
+  vertical-align: text-top;
+  float: left;
+  width: 100%;
+  height: auto;
+  margin-right: 1rem;
+}
+ul{
+  padding:1rem;
+}
+li{
+  list-style: none;
   padding-top: 1rem;
-  padding-left: 1rem;
-
+  overflow: auto;
 }
-.sideimg{
-  width: 30%;
-  float: left;
-  padding-top:1rem;
-
-
-
-
+.imgdiv{
+width: 6rem;
 }
+
 .sidetext{
-  width: 70%;
-  float: left;
-   padding-top:1rem;
-   padding-left:1rem;
+
     h6{
       color: @redcolor;
       transition: 1s;

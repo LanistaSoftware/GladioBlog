@@ -14,11 +14,13 @@
 
       <div class="row col-12">
 
-        <div class="col-9 blogcontent">
+
+        <div clas="col-9 blogcontent">
            <router-view></router-view>
+
         </div>
 
-        <div class="col-3 sidecontent">
+        <div class="sidecontent">
           <Sidebar></Sidebar>
         </div>
 
@@ -80,22 +82,9 @@ Red : #e33 = @redcolor
 @contentfont:'Exo', sans-serif;
 @btntextcolor:#eee;
 
-html{
-  background-color: @pagebgcolor;
-  font-family: @contentfont !important;
-}
-body{
-   background-color: @pagebgcolor;
-  font-family: @contentfont !important;
-  color: @nbfcolor;
-}
-ul{
-  margin:0;
-  padding:0;
-
-}
 #app{
  background-color: @pagebgcolor;  
+ 
 }
 .container{
   background-color:@bgcolor;
@@ -103,7 +92,7 @@ ul{
   padding: 0;
   max-width: 1280px;
   width: 100%;
- background: #fff;
+ background: @bgcolor;
  box-shadow: 0 0 2px #aaa;
 }
 .row{
@@ -111,10 +100,12 @@ ul{
   margin: 0;
 }
 .blogcontent{
+  width: 70%;
   margin: 0;
   //padding:3.5rem 3.5rem;
 }
 .sidecontent{
+  width: 30%;
    background-color: @sidebgcolor;
    border: 1px solid #ddd
 }
@@ -124,6 +115,7 @@ ul{
       padding: 2rem 1rem 1rem 0;
     }
 }
+
 h1,h2,h3,h4,h5,h6,button{
   font-family: @headingfont;
 
@@ -140,10 +132,137 @@ nav{
 
 }
 footer{
-   background-color: @nbfcolor;
- 
- 
+   background-color: @nbfcolor; 
+}
+li,
+ul {
+  list-style: none;
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+
+}
+
+//   html {
+//   background-color: #E5E5E5;
+//   font-family: 'Exo', sans-serif !important;
+//   font-size: 16px;
+// }
+// body {
+//   background-color: #E5E5E5;
+//   font-family: 'Exo', sans-serif !important;
+//   color: #303030;
+// }
+// @media (max-width: 575.98px) {
+//   html {
+//     font-size: 12px;
+//   }
+// }
+// @media (min-width: 576px) and (max-width: 767.98px) {
+//   html {
+//     font-size: 14px;
+//   }
+// }
+// @media (min-width: 768px) and (max-width: 991.98px) {
+//   html {
+//     font-size: 16px;
+//   }
+// }
+// @media (min-width: 992px) and (max-width: 1199.98px) {
+//   html {
+//     font-size: 18px;
+//   }
+// }
+// @media (min-width: 1200px) {
+//   html {
+//     font-size: 18px;
+//   }
+// }
+// @media (max-width: 992px) {
+//   /* ===> APP <===*/
+//   .blogcontent {
+//     width: 100% !important;
+//     float: none;
+//     text-align: center;
+//   }
+//   .sidecontent {
+//     width: 100% !important;
+//     float: none;
+//     text-align: center;
+//   }
+//   /* ===> HEADER <===*/
+//   .logo {
+//     display: block;
+//     width: 100%;
+//     float: none;
+//     text-align: center;
+//   }
+//   #search-social {
+//     display: block;
+//     width: 100%;
+//     float: none;
+//     text-align: center;
+//     padding-top: 0 !important;
+//     margin: 0 !important;
+//   }
+//   #searchbar,
+//   #social-icons {
+//     display: inline-block;
+//     float: none;
+//   }
+//   /* ===> BLOGS <===*/
+//   .cardb {
+//     text-align: left !important;
+//     padding-bottom: 0 !important;
+//   }
+//   .cardb h3,
+//   .cardb p,
+//   .cardb a {
+//     margin-top: 1rem;
+//   }
+//   /* ===> RECENT <===*/
+//   .textdiv {
+//     text-align: left;
+//   }
+//   aside {
+//     padding-left: 1rem;
+//     text-align: left !important;
+//   }
+//   aside ul {
+//     text-align: left !important;
+//   }
+//   aside ul li {
+//     text-align: left !important;
+//   }
+// }
+// @media (max-width: 768px) {
+//   /* ===> HEADER <===*/
+//   #search-social {
+//     text-align: center;
+//   }
+//   #searchbar,
+//   #social-icons {
+//     display: block !important;
+//     width: 100%;
+//   }
+//   #searchbar ul,
+//   #social-icons ul,
+//   #searchbar form,
+//   #social-icons form {
+//     display: inline-block !important;
+//   }
+// }
+// @media (max-width: 575.98px) {
+//   /* ===> BLOGS <===*/
+//   .contentimg,
+//   .contenttext {
+//     width: 100% !important;
+//     float: none !important;
+//     margin-left: 0 !important;
+//     padding: 1.2rem !important;
+//   }
+// }
 
 </style>
