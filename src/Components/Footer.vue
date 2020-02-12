@@ -1,14 +1,7 @@
 <template>
-
 <footer>
 <h5>{{msg}}</h5>
 </footer>
-
-
-
-         
-
-
 </template>
 
 <script>

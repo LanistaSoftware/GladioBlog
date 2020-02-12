@@ -10,7 +10,7 @@
           <h3>{{$route.params.title}}</h3>
         </a>
         <p class="description">{{$route.params.description}}
-        </p>
+        </p> 
       </div>
     </div>
     <hr>
