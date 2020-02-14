@@ -1,12 +1,8 @@
 <template>
   <section>
-
     <Recommended></Recommended>
     <Archives></Archives>
     <Recent></Recent>
-    
-
-
   </section>
 </template>
 

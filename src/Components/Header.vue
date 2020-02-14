@@ -1,7 +1,9 @@
 <template>
   <header>
     <div class="logo">
-    <a class="navbar-brand m-4" href="#"><img src="../assets/siyah.png" width="200" alt="Lanista Software"></a>
+      <router-link to="/" tag="li">
+        <a class="navbar-brand m-4" href="#"><img src="../assets/siyah.png" width="200" alt="Lanista Software"></a>
+      </router-link>
 </div>
 <div id="search-social">
     <div id="searchbar" >

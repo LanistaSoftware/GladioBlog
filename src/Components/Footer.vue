@@ -1,4 +1,5 @@
 <template>
+
   <footer>
     <div class="footer-text">
       <h2> Lanista Software </h2>

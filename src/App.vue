@@ -2,7 +2,6 @@
   <div id="app">
     <div class="container">
 
-     
 
       <div class="row col-12">
         <Header></Header>
@@ -100,9 +99,9 @@ Red : #e33 = @redcolor
   margin: 0;
 }
 .blogcontent{
-  width: 70%;
+  width: 50%;
   margin: 0;
-  //padding:3.5rem 3.5rem;
+  padding:3.5rem 3.5rem;
 }
 .sidecontent{
   width: 30%;

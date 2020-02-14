@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
-import VueRouter from 'vue-router'
 import {router} from './router'
-import axios from 'axios' 
+import Axios from 'axios' 
+import {store} from './store/store'
 export const eventBus= new Vue();
 
 
@@ -10,5 +10,6 @@ export const eventBus= new Vue();
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })

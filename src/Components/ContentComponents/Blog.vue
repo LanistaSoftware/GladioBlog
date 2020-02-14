@@ -1,17 +1,24 @@
 <template>
   <section>
-    <div class="cardb clearfix">
+    <div class="cardb clearfix" v-for="blog in blogs" :key="blog.id">
         <router-view></router-view>
-      <div class="contentimg"><img :src="$route.params.imageUrl">
-      </div>
+      <div class="contentimg"><img :src="blog.image">
+      </div>     
 
       <div class="contenttext">
-        <div class="blog-meta"><time class="blogtime">{{$route.params.created}}</time><span></span><a class="authorname">  /  {{ $route.params.author}}</a></div><a>
-          <h3>{{$route.params.title}}</h3>
-        </a>
-        <p class="description">{{$route.params.content}}
-        </p>
-      </div>
+        <div class="blog-meta"><time class="blogtime">{{blog.created}}</time><span></span>
+        <router-link>
+          <a class="authorname">  /  {{ blog.author}}</a>
+        </router-link>
+        
+         <router-link :to="{name:'user',params:{id:blog._id,title:blog.title,author:blog.author,content:blog.content,imageUrl:blog.image,created:blog.cradetAt}}"><a href="" class="continuiereading">Continue reading <i class="fas fa-angle-double-right"></i> </a></router-link>
+        
+        </div><a>
+          <h3>{{blog.title}}</h3>
+        </a> 
+
+        <p class="description">{{blog.content}}
+        </p>   </div>
     </div>
     <hr>
     <div class="nav-previous">
@@ -29,6 +36,7 @@
 <script>
 import {eventBus} from '../../main'
 import Comments from './Comment'
+import Axios from 'axios'
 export default {
     components:{
         Comments
@@ -36,9 +44,29 @@ export default {
   name: 'Blog',
   data() {
     return {
-      msg: 'Lanista Gladio Blog Content'
+      msg: 'Lanista Gladio Blog Content',
+      blogs:[]
     }
-  }
+  },
+  watch:{
+    
+  },
+  mounted(){
+     Axios.get(`http://localhost:2500/api/post/${this.$route.params.id}`).then(res=>{
+      this.blogs=res.data
+      Axios.get('http://localhost:2500/api/users').then(users=>{
+        users.data.forEach(user => {
+         // console.log(user)
+          
+        });
+      })
+    })
+  },
+  methods:{
+    // getBlog(id){
+   
+    // }
+  },
 }
 
 </script>
