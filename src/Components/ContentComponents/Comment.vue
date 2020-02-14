@@ -2,69 +2,39 @@
   <section>
     <!-- comment -->
 <div class="row">
-    <div class="col-md-11">
-        <div class="media g-mb-30 media-comment">
-            <img class="d-flex g-width-50 g-height-50 g-mt-3 g-mr-15" src="../../assets/img/default-profile.png" alt="Image Description">
-            <div class="media-body">
-              <div class="g-mb-15">
-                <b class="fn">
-                  <a href="#" rel="external nofollow ugc">Cihan</a>
-                </b>
-                <span class="g-color-gray-dark-v4 g-font-size-12">diyor ki:</span>
-              </div>
-              <div class="comment-metadata">
-                <a href="#" rel="external nofollow ugc">February 7, 2020 at 12:48 pm</a>
-              </div>
-            </div>
-        </div>
-        <em class="info comment-awaiting-moderation">Yorumunuz onay bekliyor. Bu bir önizleme, yorumunuz onaylandıktan sonra görünecek.
-        </em>
-         <div class="description">
-              <div class="comment-content">
-                  <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
-                felis in faucibus ras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-        
-              </div>
-                <div class="reply">
-                  <a rel="nofollow" href="#" class="comment-reply-link">Reply</a>
-                </div>
-              
-              </div>
-              
-    <div class="title-item">
+  <CommentPage></CommentPage>
+</div>
+ <div class="title-item">
         <h4>Leave a Reply</h4>
         <p>Your email address will not be published. Required fields are marked *</p>
     </div>
-
-    </div>
-</div>
     <!-- comment last -->
     <form>
       <div class="form-group">
     <label for="exampleFormControlTextarea1"><h5>Comment</h5> </label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" v-model="comments.content"></textarea>
   </div>
    <div class="form-group row">
     <label for="inputName" class="col-sm-2 col-form-label">Name*</label>
     <div class="col-5">
-      <input type="text" class="form-control" id="inputName" placeholder="Name">
+      <input type="text" class="form-control" id="inputName" placeholder="Name" v-model="comments.name">
     </div>
   </div>
   <div class="form-group row">
     <label for="inputEmail" class="col-sm-2 col-form-label">Email*</label>
     <div class="col-5">
-      <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+      <input type="email" class="form-control" id="inputEmail" placeholder="Email" v-model="comments.email">
     </div>
   </div>
    <div class="form-group row">
     <label for="inputWebSite" class="col-sm-2 col-form-label">Web Site</label>
     <div class="col-5">
-      <input type="text" class="form-control" id="inputWebSite" placeholder="Web site">
+      <input type="text" class="form-control" id="inputWebSite" placeholder="Web site" v-model="comments.website">
     </div>
   </div>
   <div class="form-group">
     <div>
-      <button type="submit" class="btnComment">Post Comment</button>
+      <button type="submit" class="btnComment" @click="saveComment()">Post Comment</button>
     </div>
   </div>
 </form>
@@ -72,8 +42,38 @@
 </template>
 
 <script>
+import Axios from 'axios'
+import CommentPage from './Comment-page'
 export default {
+  components:{
+    CommentPage,
+  },
+  data(){
+    return{
+      id:null,
+      URL:`http://localhost:2500/api/comment/${this.$route.params.id}`,
+      comments:{
+        content:null,
+        name:null,
+        email:null,
+        website:null,
+        date: new Date().toLocaleDateString() + ' - ' + new Date().getHours() +' : '+new Date().getMinutes()
+      }
+      
+    }
+  },
+  methods:{
+    saveComment(){
+      Axios.put(`http://localhost:2500/api/comment/${this.$route.params.id}?content=${this.comments.content}&name=${this.comments.name}&email=${this.comments.email}&website=${this.comments.website}&date=${this.comments.date}`)
+    }
+  }, watch:{
+      '$route'(to,from){
+          this.id =to.params._id
+      }
+  }
+
 }
+
 </script>
 
 <style lang="less"scoped>@nbfcolor: #303030;
@@ -144,7 +144,6 @@ b, strong {
 }
 .comment-content{
   clear: left;
-  padding: 2em 0 0;
 }
 .reply{
   padding-top: 1rem;

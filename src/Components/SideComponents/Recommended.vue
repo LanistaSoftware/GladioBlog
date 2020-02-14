@@ -63,7 +63,7 @@ export default {
   mounted() {
     Axios.get('http://localhost:2500/api/post').then(res => {
       this.blogs = res.data;
-      console.log(this.blogs)
+      
     }).catch(err => {
       console.log(err);
     })

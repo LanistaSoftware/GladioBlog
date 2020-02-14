@@ -1,9 +1,5 @@
 <template>
-<<<<<<< HEAD
-<footer>
-<h5>{{msg}}</h5>
-</footer>
-=======
+
   <footer>
     <div class="footer-text">
       <h2> Lanista Software </h2>
@@ -13,7 +9,6 @@
       <img src="../assets/lg.png" alt="Footer ICON">
     </div>
   </footer>
->>>>>>> 5e33c3ac860df686ff01ed25cc8ba084bbf85f10
 </template>
 
 <script>

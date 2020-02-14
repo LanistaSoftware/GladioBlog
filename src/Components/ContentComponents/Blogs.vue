@@ -4,7 +4,12 @@
         <router-view></router-view>
       <div class="contentimg"><img :src="blog.image==null ? imageUrl:blog.image" width="300" height="250"></div>
       <div class="contenttext">
-        <div class="blog-meta"><time class="blogtime">{{blog.cradetAt}}</time><span>/ </span><a class="authorname">{{blog.author}} - {{id}}</a></div><a>
+        <div class="blog-meta"><time class="blogtime">{{blog.cradetAt}}</time><span>/ </span>
+        <router-link :to="{name:'user',params:{userid:blog.userid,author:blog.author,email:blog.email,website:blog.website}}">
+          <a class="authorname">{{blog.author}} - {{id}}</a>
+        </router-link>
+        </div>
+        <a>
           <h3>{{blog.title}}</h3>
         </a>
         <p class="description">{{blog.title}}
@@ -27,6 +32,8 @@ export default {
   data() {
     return {
        id:null,
+       userid:null,
+       title:null,
         imageUrl:'https://i.picsum.photos/id/128/880/660.jpg',
 
       bloglist:[]
@@ -37,12 +44,11 @@ export default {
   },
   watch:{
       '$route'(to,from){
-          this.id =to.params._id
+          this.id =to.params._id,
+          this.userid=to.params.userid
       }
-
   },
   mounted(){
-
    Axios.get('http://localhost:2500/api/post').then(blogs=>{
      this.bloglist=blogs.data;
    }).catch(err=>{
