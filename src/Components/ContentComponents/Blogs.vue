@@ -5,27 +5,24 @@
       <div class="contentimg"><img :src="blog.image==null ? imageUrl:blog.image" width="300" height="250"></div>
       <div class="contenttext">
         <div class="blog-meta"><time class="blogtime">{{blog.cradetAt}}</time><span>/ </span>
-        <router-link :to="{name:'user',params:{userid:blog.userid,author:blog.author,email:blog.email,website:blog.website}}">
-          <a class="authorname">{{blog.author}} - {{id}}</a>
+        <router-link :to="{name:'user-detail',params:{id:blog.userid}}" tag="li">
+         <a class="authorname">{{ blog.author}}</a>
         </router-link>
-        </div>
+        </div> 
         <a>
           <h3>{{blog.title}}</h3>
         </a>
-        <p class="description">{{blog.title}}
+        <p class="description">{{blog.content}}
         </p>
         <router-link :to="{name:'details',params:{id:blog._id,title:blog.title,author:blog.author,content:blog.content,imageUrl:blog.image,created:blog.cradetAt}}"><a href="" class="continuiereading">Continue reading <i class="fas fa-angle-double-right"></i> </a></router-link>
       </div>
     </div>
-
-
     <div class="olderposts text-center"><button>Older Posts</button></div>
   </section>
 </template>
-
 <script>
 import {eventBus} from '../../main'
-import Axios from 'axios'
+import Axios from '../../axios'
 export default {
 
   name: 'Blogs',
@@ -43,13 +40,10 @@ export default {
  
   },
   watch:{
-      '$route'(to,from){
-          this.id =to.params._id,
-          this.userid=to.params.userid
-      }
+      
   },
   mounted(){
-   Axios.get('http://localhost:2500/api/post').then(blogs=>{
+   Axios.get('/post').then(blogs=>{
      this.bloglist=blogs.data;
    }).catch(err=>{
      console.log(err);
@@ -139,8 +133,8 @@ button:hover{
   color: #ffffff;
 }
 .description{
-     display: -webkit-box;
-  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;  
   overflow:hidden;
 }

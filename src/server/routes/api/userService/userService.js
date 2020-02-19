@@ -14,7 +14,11 @@ router.get('/', async (req, res) => {
   res.send(await user.find({}).toArray());
 
 });
+router.get('/:userid', async (req, res) => {
+  const user = await connectService.loadUser();
+  res.send(await user.findOne({_id:new mongodb.ObjectId(req.params.userid)}));
 
+});
 router.post('/', async (req, res) => {
   const user = await connectService.loadUser();
   

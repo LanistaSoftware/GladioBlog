@@ -4,6 +4,12 @@
 <div class="row">
   <CommentPage></CommentPage>
 </div>
+  <div class="loading" :style="isLoading">
+        <div class="lds-ripple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
  <div class="title-item">
         <h4>Leave a Reply</h4>
         <p>Your email address will not be published. Required fields are marked *</p>
@@ -42,7 +48,7 @@
 </template>
 
 <script>
-import Axios from 'axios'
+import Axios from '../../axios'
 import CommentPage from './Comment-page'
 export default {
   components:{
@@ -50,8 +56,9 @@ export default {
   },
   data(){
     return{
+      addButtonClick:false,
       id:null,
-      URL:`http://localhost:2500/api/comment/${this.$route.params.id}`,
+      URL:`/comment/${this.$route.params.id}`,
       comments:{
         content:null,
         name:null,
@@ -64,14 +71,23 @@ export default {
   },
   methods:{
     saveComment(){
-      Axios.put(`http://localhost:2500/api/comment/${this.$route.params.id}?content=${this.comments.content}&name=${this.comments.name}&email=${this.comments.email}&website=${this.comments.website}&date=${this.comments.date}`)
+      this.addButtonClick=true
+      Axios.put(`/comment/${this.$route.params.id}?content=${this.comments.content}&name=${this.comments.name}&email=${this.comments.email}&website=${this.comments.website}&date=${this.comments.date}`)
     }
-  }, watch:{
-      '$route'(to,from){
-          this.id =to.params._id
-      }
+  },
+  computed:{
+     isLoading(){
+            if(this.addButtonClick){
+                return{
+                    display:"block"
+                }
+            }else{
+                return{
+                    display:"none"
+                }
+            }
+        }
   }
-
 }
 
 </script>

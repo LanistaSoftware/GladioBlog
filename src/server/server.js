@@ -42,6 +42,7 @@ app.use((req, res, next) => {
   }
 
 })
+//midd
 const posts = require('./routes/api/blogService/blog');
 app.use('/api/post', posts);
 const comments = require('./routes/api/commentService/commentService');
@@ -81,7 +82,6 @@ const port = process.env.PORT || 2500;
 //   }).catch(err => {
 //     console.log(err);
 //   })
-
 // });
  app.set('view engine', ['css','icon']);
  app.set('views','../assets/css');

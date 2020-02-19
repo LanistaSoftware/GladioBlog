@@ -3,7 +3,7 @@ import Axios from 'axios'
 
 export const setCommentResult = ({state,commit},commentResult)=>{
     commit("updateCommentResult",commentResult);
-    letcommentData={
+    let commentData={
         name:state.name,
         email:state.email,
         website:state.website,

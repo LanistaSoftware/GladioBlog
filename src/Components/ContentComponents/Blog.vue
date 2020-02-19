@@ -3,22 +3,20 @@
     <div class="cardb clearfix" v-for="blog in blogs" :key="blog.id">
         <router-view></router-view>
       <div class="contentimg"><img :src="blog.image">
-      </div>     
-
+      </div> 
       <div class="contenttext">
         <div class="blog-meta"><time class="blogtime">{{blog.created}}</time><span></span>
-        <router-link>
-          <a class="authorname">  /  {{ blog.author}}</a>
-        </router-link>
-        
-         <router-link :to="{name:'user',params:{id:blog._id,title:blog.title,author:blog.author,content:blog.content,imageUrl:blog.image,created:blog.cradetAt}}"><a href="" class="continuiereading">Continue reading <i class="fas fa-angle-double-right"></i> </a></router-link>
-        
-        </div><a>
+        <router-link :to="{name:'user-detail',params:{id:blog.userid}}" tag="li">
+         <a class="authorname">{{ blog.author}}</a>
+         </router-link>
+        </div>
+        <a>
           <h3>{{blog.title}}</h3>
         </a> 
 
         <p class="description">{{blog.content}}
-        </p>   </div>
+        </p>
+        </div>
     </div>
     <hr>
     <div class="nav-previous">
@@ -36,7 +34,7 @@
 <script>
 import {eventBus} from '../../main'
 import Comments from './Comment'
-import Axios from 'axios'
+import Axios from '../../axios'
 export default {
     components:{
         Comments
@@ -45,22 +43,24 @@ export default {
   data() {
     return {
       msg: 'Lanista Gladio Blog Content',
-      blogs:[]
+      blogs:[],
+      id:null
     }
   },
-  watch:{
-    
-  },
   mounted(){
-     Axios.get(`http://localhost:2500/api/post/${this.$route.params.id}`).then(res=>{
+    // /${this.$route.params.userid}
+     Axios.get(`/post/${this.$route.params.id}`).then(res=>{
       this.blogs=res.data
-      Axios.get('http://localhost:2500/api/users').then(users=>{
-        users.data.forEach(user => {
-         // console.log(user)
-          
-        });
-      })
     })
+  //   Axios.get('/users').then(res=>{
+  //     this.user=res.data
+  //    console.log("çalıştı",this.user)
+  //  }).catch(err=>{
+  //    console.log("hata",err);
+  //  })
+  },
+  created(){
+    
   },
   methods:{
     // getBlog(id){

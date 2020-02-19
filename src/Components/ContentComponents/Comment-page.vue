@@ -3,7 +3,7 @@
      <div class="col-md-11" v-for="comment in comment" :key="comment.id">
         <div class="media g-mb-30 media-comment">
             <img class="d-flex g-width-50 g-height-50 g-mt-3 g-mr-15" src="../../assets/img/default-profile.png" alt="Image Description">
-            <div class="media-body">
+            <div class="media-body"> 
               <div class="g-mb-15">
                 <router-link :to="{name:'profile',params:{userid:comment.userid,name:comment.name,email:comment.email,website:comment.website}}" tag="b" class="fn">
                   <a href="#" rel="external nofollow ugc">{{comment[0].name}}</a>
@@ -36,7 +36,7 @@
 </template>
 <script>
 
-import Axios from 'axios'
+import Axios from '../../axios'
 export default {
   data(){
     return{
@@ -49,23 +49,15 @@ export default {
       //this.$store.dispatch("saveComment",this.comment)
       console.log(this.comment)
     }
-  }, watch:{
-      '$route'(to,from){
-          this.id =to.params._id
-      }
   },
   mounted(){
-   Axios.get(`http://localhost:2500/api/post/${this.$route.params.id}`).then(blogs=>{
+   Axios.get(`/post/${this.$route.params.id}`).then(blogs=>{
     let com=[];
      com=blogs.data[0].comment
      for (let index = 0; index < com.length; index++) {
-
       this.comment.push(com[index])
-
      }
      console.log(this.comment)
-
-
    })
   }
 
