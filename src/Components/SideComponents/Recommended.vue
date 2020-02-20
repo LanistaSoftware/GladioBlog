@@ -2,48 +2,25 @@
   <aside>
     <div class="sidecardhead">
       <h5>Recommended</h5>
-      <button class="active sidebuttons" @click="listToRecent()">Recent</button>
+      <button class=" sidebuttons" @click="listToRecent()">Recent</button>
       <button class="sidebuttons" @click="listToPopular()">Popular</button>
       <button class="sidebuttons" @click="listToComments()">Comments</button>
     </div>
 
     <ul>
-      <li>
-        <div class="imgdiv"><img src="https://i.picsum.photos/id/11/90/65.jpg" alt="Blog İmage">
+      <li  v-for="blog in recentBlogs" :key="blog.id">
+        <div class="imgdiv"><img :src="blog.image" alt="Blog İmage">
         </div>
         <div class="sidetext">
           <a href="">
-            <h6>Magazine WordPress Theme</h6>
+            <h6>{{blog.title}}</h6>
           </a>
           <div class="blog-meta">
-            <time class="blogtime">January 24, 2016</time>
+            <time class="blogtime">{{blog.cradetAt}}</time>
           </div>
         </div>
       </li>
-      <li>
-        <div class="imgdiv"><img src="https://i.picsum.photos/id/32/90/65.jpg" alt="Blog İmage">
-        </div>
-        <div class="sidetext">
-          <a href="">
-            <h6>Magazine WordPress Theme</h6>
-          </a>
-          <div class="blog-meta">
-            <time class="blogtime">January 24, 2016</time>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="imgdiv"><img src="https://i.picsum.photos/id/91/90/65.jpg" alt="Blog İmage">
-        </div>
-        <div class="sidetext">
-          <a href="">
-            <h6>Magazine WordPress Theme</h6>
-          </a>
-          <div class="blog-meta">
-            <time class="blogtime">January 24, 2016</time>
-          </div>
-        </div>
-      </li>
+      
     </ul>
 
 
@@ -57,29 +34,82 @@ export default {
   data() {
     return {
       blogs: [],
+      blogCounter:[],
       recentBlogs:[]
+    
     }
   },
   mounted() {
-    Axios.get('http://localhost:2500/api/post').then(res => {
-      this.blogs = res.data;
-      console.log(this.blogs)
+
+    Axios.get('http://localhost:2500/api/post').then((res) => {
+      this.blogs= res.data;
+    }).then(()=>{
+      this.listToRecent();
     }).catch(err => {
       console.log(err);
     })
+
+    
   },
   methods: {
     listToRecent() {
-      let blogDates = null;
-      let blogId = null;
-      // this.recentBlogs=this.blogs[this.blogs.length-1,this.blogs.length-2,this.blogs.length-3]
-      // console.log(this.recentBlogs)
+      this.recentBlogs = [];
+      this.recentBlogs.push(this.blogs[this.blogs.length - 3], this.blogs[this.blogs.length - 2], this.blogs[this.blogs.length - 1])
+    },
+    listToPopular() {
+      Axios.get('http://localhost:2500/api/counter').then(res => {
+        this.blogCounter = [];
+        let by = [];
+        this.blogCounter = res.data;
+        this.blogCounter.forEach(element => {
+          by.push({
+            counter: element.counter,
+            id:  element.blogid
+          })
+       });
+          
+        
+      by.sort(function (a, b) {
+          var keyA = a.counter,
+            keyB = b.counter;
+          if (keyA < keyB) return -1;
+          if (keyA > keyB) return 1;
+          return 0;
+        })
+        this.recentBlogs = []
+        let popular = []
+        by.forEach(element => {
+          this.blogs.forEach(blog=>{
+             if (blog._id == element.id) {
+              popular.push(blog)
+            }
+          })
+        });
+        // by.map(count => {
+        //   this.blogs.map(blog => {
+        //     if (blog._id == count.id) {
+        //       popular.push(blog)
+        //     }
+        //   })
+        // })
+        this.recentBlogs.push(popular[popular.length - 1] , popular[popular.length - 2], popular[popular.length - 3])
+
+      })
+    },
+    listToComments(){
+      this.blogs.sort(function (a, b) {
+          var keyA = a.comment.length,
+            keyB = b.comment.length ;
+          if (keyA < keyB) return -1;
+          if (keyA > keyB) return 1;
+          return 0;
+        })
+        this.recentBlogs=[]
+        this.recentBlogs.push(this.blogs[this.blogs.length - 1] , this.blogs[this.blogs.length - 2], this.blogs[this.blogs.length - 3])
     }
   }
-
 }
 </script>
-
 <style lang="less" scoped>
 /*
 Page Bg color #E5E5E5 =@pagebgcolor 
