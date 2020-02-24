@@ -43,7 +43,7 @@ export default {
   },
   mounted(){
 
-   Axios.get('https://167.172.163.22/api/post').then(blogs=>{
+   Axios.get('https://blog.lanista.com.tr/api/post').then(blogs=>{
      this.bloglist=blogs.data;
    }).catch(err=>{
      console.log(err);
